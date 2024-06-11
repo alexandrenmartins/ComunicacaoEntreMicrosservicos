@@ -1,1 +1,4 @@
-teste
+COMANDOS Yarn:
+yarn init
+yarn add [dependencies]
+yarn run startDev
