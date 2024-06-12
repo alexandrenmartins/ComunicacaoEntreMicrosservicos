@@ -1,4 +1,5 @@
-import UserRepository from "../repository/userRepository";
+import UserRepository from "../../repository/userRepository";
+import UserException from "../../exception/UserException";
 import * as httpStatus from "../../../config/constants/httpStatus";
 
 class UserService {
