@@ -1,16 +1,14 @@
-import UserRepository from "../../repository/userRepository";
-import UserException from "../../exception/UserException";
-import * as httpStatus from "../../../config/constants/httpStatus";
+import UserRepository from "../repository/UserRepository.js";
+import UserException from "../exception/UserException.js";
+import * as httpStatus from "../../config/constants/httpStatus";
 
 class UserService {
     async findByEmail(req) {
         try {
             const { email } = req.params;
-            this.validarDadosRequisicao(email);
-            let user = UserRepository.findByEmail(email);
-            if (!user) {
-                
-            }
+            this.validateRequestData(email);
+            let user = await UserRepository.findByEmail(email);
+            this.validateUserNotFound(user);
             return {
                 status: httpStatus.SUCCESS,
                 user: {
@@ -28,11 +26,23 @@ class UserService {
         }
     }
 
-    validarDadosRequisicao(email) {
+    validateRequestData(email) {
         if(!email) {
-            throw new Error("Email do usuario não informado");
+            throw new UserException(
+                httpStatus.BAD_REQUEST,
+                "Email de usuario não informado"
+            );
         }
     }
+
+    validateUserNotFound(user) {
+        if(!user) {
+            throw new UserException(
+                httpStatus.BAD_REQUEST,
+                "Usuario nao encontrado"
+            );
+        }
+    }    
 }
 
 export default new UserService();
