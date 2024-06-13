@@ -2,3 +2,7 @@ COMANDOS Yarn:
 yarn init
 yarn add [dependencies]
 yarn run startDev
+
+
+Configurar para DBeaver acessar Postgres no WSL2:
+sudo ufw allow 5432/tcp
